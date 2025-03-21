@@ -1,6 +1,7 @@
 package org.journal.journal_api.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.journal.journal_api.dto.journalEntry;
@@ -31,5 +32,23 @@ public class journalEntryService {
 
             return new ResponseEntity<Object>(map, HttpStatus.CREATED);
         }
+    }
+
+    public ResponseEntity<Object> saveMultipleJournals(List<journalEntry> journals) {
+        for(journalEntry journal: journals){
+            if(repository.existsByTitle(journal.getTitle())){
+                Map<String,Object> map = new HashMap<String, Object>();
+                map.put("error", "Title already exists");
+    
+                return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
+            }
+        }
+        repository.saveAll(journals);
+
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("success", "Journals saved successfully");
+        map.put("Journal Data", journals);
+
+        return new ResponseEntity<Object>(map, HttpStatus.CREATED);
     }
 }
