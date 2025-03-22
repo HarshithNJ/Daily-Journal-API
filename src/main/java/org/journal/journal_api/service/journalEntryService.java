@@ -114,4 +114,21 @@ public class journalEntryService {
             return new ResponseEntity<Object>(map, HttpStatus.FOUND);
         }
     }
+
+    public ResponseEntity<Object> fetchByDateRange(String date1, String date2) {
+        List<journalEntry> entry = repository.findByDateBetween(date1, date2);
+
+        if(entry.isEmpty()){
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("error", "No Journals Data found between " + date1 + " and " + date2);
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Journals found between " + date1 + " and " + date2);
+            map.put("Journal Data", entry);
+
+            return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
 }

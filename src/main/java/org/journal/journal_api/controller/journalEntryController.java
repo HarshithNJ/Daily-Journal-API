@@ -44,8 +44,13 @@ public class journalEntryController {
         return service.fetchByTitle(title);
     }
 
-    @GetMapping("/journals/{publisher}")
+    @GetMapping("/journals/publisher/{publisher}")
     public ResponseEntity<Object> fetchByPublisher(@PathVariable String publisher){
         return service.fetchByPublisher(publisher);
+    }
+
+    @GetMapping("/journals/{date1}/{date2}")
+    public ResponseEntity<Object> fetchByDateRange(@PathVariable String date1, @PathVariable String date2){
+        return service.fetchByDateRange(date1, date2);
     }
 }

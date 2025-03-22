@@ -14,4 +14,6 @@ public interface journalEntryRepository extends JpaRepository<journalEntry, Long
 
     List<journalEntry> findByPublisher(String publisher);
 
+    List<journalEntry> findByDateBetween(String date1, String date2);
+
 }
