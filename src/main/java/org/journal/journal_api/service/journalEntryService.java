@@ -81,5 +81,20 @@ public class journalEntryService {
         }
     }
 
-    
+    public ResponseEntity<Object> fetchByTitle(String title) {
+        Optional<journalEntry> entry = repository.findByTitle(title);
+
+        if(entry.isPresent()){
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("success", "Journal Found");
+            map.put("Journal Data", entry.get());
+
+            return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "No Journal Data found with title: " + title);
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }

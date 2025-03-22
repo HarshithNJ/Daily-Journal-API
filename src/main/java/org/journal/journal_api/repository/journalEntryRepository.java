@@ -9,5 +9,6 @@ public interface journalEntryRepository extends JpaRepository<journalEntry, Long
 
     boolean existsByTitle(String title);
 
+    Optional<journalEntry> findByTitle(String title);
 
 }
