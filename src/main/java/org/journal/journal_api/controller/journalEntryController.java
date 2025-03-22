@@ -43,4 +43,9 @@ public class journalEntryController {
     public ResponseEntity<Object> fetchByTitle(@PathVariable String title){
         return service.fetchByTitle(title);
     }
+
+    @GetMapping("/journals/{publisher}")
+    public ResponseEntity<Object> fetchByPublisher(@PathVariable String publisher){
+        return service.fetchByPublisher(publisher);
+    }
 }

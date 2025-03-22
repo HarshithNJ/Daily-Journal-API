@@ -97,4 +97,21 @@ public class journalEntryService {
             return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    public ResponseEntity<Object> fetchByPublisher(String publisher) {
+        List<journalEntry> entry = repository.findByPublisher(publisher);
+
+        if(entry.isEmpty()){
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("error", "No Journals Data found by publisher: " + publisher);
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Journals found by publisher: ");
+            map.put("Journal Data", entry);
+
+            return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
 }
