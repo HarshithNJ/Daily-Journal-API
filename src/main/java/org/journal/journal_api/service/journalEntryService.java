@@ -3,6 +3,7 @@ package org.journal.journal_api.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.journal.journal_api.dto.journalEntry;
 import org.journal.journal_api.repository.journalEntryRepository;
@@ -51,4 +52,34 @@ public class journalEntryService {
 
         return new ResponseEntity<Object>(map, HttpStatus.CREATED);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    public ResponseEntity<Object> fetchAllJournals() {
+        List<journalEntry> entry = repository.findAll();
+
+        if(entry.isEmpty()){
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("error", "No Journals Data found");
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Journals found successfully");
+            map.put("Journal Data", entry);
+
+            return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
+
+    
 }
