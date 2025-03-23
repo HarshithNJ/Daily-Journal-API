@@ -6,6 +6,7 @@ import org.journal.journal_api.dto.journalEntry;
 import org.journal.journal_api.service.journalEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +53,15 @@ public class journalEntryController {
     @GetMapping("/journals/{date1}/{date2}")
     public ResponseEntity<Object> fetchByDateRange(@PathVariable String date1, @PathVariable String date2){
         return service.fetchByDateRange(date1, date2);
+    }
+
+
+
+
+
+    // To Delete a Record
+    @DeleteMapping("/journals/{id}")
+    public ResponseEntity<Object> deleteJournal(@PathVariable long id){
+        return service.deleteJournal(id);
     }
 }

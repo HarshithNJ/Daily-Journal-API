@@ -131,4 +131,31 @@ public class journalEntryService {
             return new ResponseEntity<Object>(map, HttpStatus.FOUND);
         }
     }
+
+
+
+
+
+
+
+
+
+
+    
+    public ResponseEntity<Object> deleteJournal(long id) {
+        Optional<journalEntry> entry = repository.findById(id);
+
+        if(entry.isPresent()){
+            repository.deleteById(id);
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("success", "Journal deleted successfully");
+
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }else{
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("error", "No Journal found with id: " + id);
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }
