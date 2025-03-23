@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,5 +64,17 @@ public class journalEntryController {
     @DeleteMapping("/journals/{id}")
     public ResponseEntity<Object> deleteJournal(@PathVariable long id){
         return service.deleteJournal(id);
+    }
+
+
+
+
+
+
+
+    // To Update a Record
+    @PatchMapping("/journals/{id}")
+    public ResponseEntity<Object> updateJournal(@PathVariable long id, @RequestBody journalEntry journal){
+        return service.updateJournal(id, journal);
     }
 }

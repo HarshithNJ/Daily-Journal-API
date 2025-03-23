@@ -158,4 +158,47 @@ public class journalEntryService {
             return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+    public ResponseEntity<Object> updateJournal(long id, journalEntry journal) {
+        Optional<journalEntry> entry = repository.findById(id);
+
+        if(entry.isPresent()){
+            journalEntry je = entry.get();
+
+            if(journal.getTitle() != null)
+                je.setTitle(journal.getTitle());
+
+            if(journal.getContent() != null)
+                je.setContent(journal.getContent());
+
+            if(journal.getPublisher() != null)
+                je.setPublisher(journal.getPublisher());
+
+            if(journal.getDate() != null)
+                je.setDate(journal.getDate());
+
+            repository.save(je);
+
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("success", "Journal updated successfully");
+            map.put("Journal Data", je);
+
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }else{
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("error", "No Journal found with id: " + id);
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }
